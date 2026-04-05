@@ -61,17 +61,19 @@ jobs:
 
       # ── Publish to VS Code Marketplace (optional) ──
       - name: Publish pre-release to Marketplace
-        if: inputs.pre-release && secrets.VSCE_PAT != ''
+        if: ${{ inputs.pre-release && env.HAS_VSCE_PAT == 'true' }}
         run: npx vsce publish --no-dependencies --pre-release --packagePath archsketch-*.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          HAS_VSCE_PAT: ${{ secrets.VSCE_PAT != '' }}
         continue-on-error: true
 
       - name: Publish stable to Marketplace
-        if: ${{ !inputs.pre-release && secrets.VSCE_PAT != '' }}
+        if: ${{ !inputs.pre-release && env.HAS_VSCE_PAT == 'true' }}
         run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          HAS_VSCE_PAT: ${{ secrets.VSCE_PAT != '' }}
         continue-on-error: true
 
       # ── Upload VSIX to the GitHub Release ──────────
