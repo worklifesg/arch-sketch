@@ -1,8 +1,18 @@
 name: Publish
 
+# Manual trigger for re-publishing or pre-releases
+# Normal releases are handled by release-please.yml
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+    inputs:
+      pre-release:
+        description: "Publish as pre-release"
+        type: boolean
+        default: false
+      tag:
+        description: "Release tag to attach VSIX to (e.g. archsketch-v0.1.1)"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -36,22 +46,22 @@ jobs:
         run: npm run build
 
       - name: Package VSIX (pre-release)
-        if: github.event.release.prerelease
+        if: inputs.pre-release
         run: npx vsce package --no-dependencies --pre-release
 
       - name: Package VSIX (stable)
-        if: ${{ !github.event.release.prerelease }}
+        if: ${{ !inputs.pre-release }}
         run: npx vsce package --no-dependencies
 
       # ── Publish to VS Code Marketplace ─────────────
       - name: Publish pre-release to Marketplace
-        if: github.event.release.prerelease
+        if: inputs.pre-release
         run: npx vsce publish --no-dependencies --pre-release --packagePath archsketch-*.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish stable to Marketplace
-        if: ${{ !github.event.release.prerelease }}
+        if: ${{ !inputs.pre-release }}
         run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -65,7 +75,8 @@ jobs:
 
       # ── Upload VSIX to the GitHub Release ──────────
       - name: Upload VSIX to release
+        if: inputs.tag != ''
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.release.tag_name }}
+          tag_name: ${{ inputs.tag }}
           files: "*.vsix"
