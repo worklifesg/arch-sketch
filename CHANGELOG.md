@@ -5,6 +5,14 @@ All notable changes to the ArchSketch extension will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3](https://github.com/worklifesg/arch-sketch/compare/archsketch-v0.1.2...archsketch-v0.1.3) (2026-04-05)
+
+
+### Bug Fixes
+
+* use env var pattern for optional VSCE_PAT condition ([46fb859](https://github.com/worklifesg/arch-sketch/commit/46fb85933e83bc4df42daaf298cc012b898a052c))
+* use releases_created output and dynamic tag for publish job ([#17](https://github.com/worklifesg/arch-sketch/issues/17)) ([3ad6f98](https://github.com/worklifesg/arch-sketch/commit/3ad6f98d2ad89219b7e73fa513c7007bb3d28876))
+
 ## [0.1.2](https://github.com/worklifesg/arch-sketch/compare/archsketch-v0.1.1...archsketch-v0.1.2) (2026-04-05)
 
 

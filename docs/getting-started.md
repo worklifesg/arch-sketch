@@ -12,19 +12,28 @@ title: Getting Started
 
 ## Installation
 
-### From the VS Code Marketplace
+### From GitHub Releases (recommended for VS Code)
 
-1. Open VS Code
-2. Go to the Extensions view (`Ctrl+Shift+X`)
-3. Search for **"ArchSketch"**
-4. Click **Install**
+1. Go to the [latest release](https://github.com/worklifesg/arch-sketch/releases/latest)
+2. Download the `.vsix` file (e.g., `archsketch-0.1.3.vsix`)
+3. In VS Code, open the Command Palette (`Ctrl+Shift+P`)
+4. Run **"Extensions: Install from VSIX..."**
+5. Select the downloaded file
 
-### From a VSIX file
+**Or** install via CLI:
 
-1. Download the `.vsix` file from [GitHub Releases](https://github.com/worklifesg/arch-sketch/releases)
-2. In VS Code, open the Command Palette (`Ctrl+Shift+P`)
-3. Run **"Extensions: Install from VSIX..."**
-4. Select the downloaded file
+```bash
+gh release download --repo worklifesg/arch-sketch --pattern "*.vsix" --dir /tmp
+code --install-extension /tmp/archsketch-*.vsix
+```
+
+### From Open VSX Registry (VSCodium / Gitpod / Theia)
+
+1. Open the Extensions view (`Ctrl+Shift+X`)
+2. Search for **"ArchSketch"** by `worklifesg`
+3. Click **Install**
+
+Or browse it at [open-vsx.org/extension/worklifesg/archsketch](https://open-vsx.org/extension/worklifesg/archsketch).
 
 ## Your First Diagram
 
