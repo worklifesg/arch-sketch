@@ -1,9 +1,8 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -36,11 +35,23 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Package VSIX
+      - name: Package VSIX (pre-release)
+        if: github.event.release.prerelease
+        run: npx vsce package --no-dependencies --pre-release
+
+      - name: Package VSIX (stable)
+        if: ${{ !github.event.release.prerelease }}
         run: npx vsce package --no-dependencies
 
       # ── Publish to VS Code Marketplace ─────────────
-      - name: Publish to VS Code Marketplace
+      - name: Publish pre-release to Marketplace
+        if: github.event.release.prerelease
+        run: npx vsce publish --no-dependencies --pre-release --packagePath archsketch-*.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish stable to Marketplace
+        if: ${{ !github.event.release.prerelease }}
         run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -50,11 +61,11 @@ jobs:
         run: npx ovsx publish archsketch-*.vsix
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
-        continue-on-error: true  # Don't fail release if OVSX isn't set up yet
+        continue-on-error: true
 
-      # ── GitHub Release ─────────────────────────────
-      - name: Create GitHub Release
+      # ── Upload VSIX to the GitHub Release ──────────
+      - name: Upload VSIX to release
         uses: softprops/action-gh-release@v2
         with:
-          generate_release_notes: true
+          tag_name: ${{ github.event.release.tag_name }}
           files: "*.vsix"

@@ -5,13 +5,35 @@
   "version": "0.1.0",
   "publisher": "archsketch",
   "license": "MIT",
+  "icon": "images/icon.png",
+  "preview": true,
   "engines": {
     "vscode": "^1.90.0"
   },
   "categories": [
     "Visualization",
+    "Machine Learning",
     "Other"
   ],
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "badges": [
+    {
+      "url": "https://github.com/worklifesg/arch-sketch/actions/workflows/ci.yml/badge.svg",
+      "href": "https://github.com/worklifesg/arch-sketch/actions/workflows/ci.yml",
+      "description": "CI"
+    }
+  ],
+  "homepage": "https://github.com/worklifesg/arch-sketch#readme",
+  "bugs": {
+    "url": "https://github.com/worklifesg/arch-sketch/issues"
+  },
+  "qna": "marketplace",
+  "sponsor": {
+    "url": "https://github.com/sponsors/worklifesg"
+  },
   "keywords": [
     "draw.io",
     "architecture",
@@ -20,7 +42,9 @@
     "azure",
     "gcp",
     "kubernetes",
-    "cloud"
+    "cloud",
+    "ai",
+    "copilot"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",

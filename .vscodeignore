@@ -4,6 +4,7 @@
 **/.github/**
 **/test/**
 **/coverage/**
+**/docs/**
 **/tsconfig.json
 **/esbuild.mjs
 **/vitest.config.ts
@@ -11,5 +12,7 @@
 **/.editorconfig
 **/CONTRIBUTING.md
 **/CHANGELOG.md
+**/SECURITY.md
 **/*.test.ts
 **/.env
+**/images/icon.svg
