@@ -53,24 +53,25 @@ jobs:
         if: ${{ !inputs.pre-release }}
         run: npx vsce package --no-dependencies
 
-      # ── Publish to VS Code Marketplace ─────────────
-      - name: Publish pre-release to Marketplace
-        if: inputs.pre-release
-        run: npx vsce publish --no-dependencies --pre-release --packagePath archsketch-*.vsix
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-
-      - name: Publish stable to Marketplace
-        if: ${{ !inputs.pre-release }}
-        run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-
-      # ── Publish to Open VSX (VSCodium / Gitpod) ───
+      # ── Publish to Open VSX (primary registry) ────
       - name: Publish to Open VSX Registry
         run: npx ovsx publish archsketch-*.vsix
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+      # ── Publish to VS Code Marketplace (optional) ──
+      - name: Publish pre-release to Marketplace
+        if: inputs.pre-release && secrets.VSCE_PAT != ''
+        run: npx vsce publish --no-dependencies --pre-release --packagePath archsketch-*.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        continue-on-error: true
+
+      - name: Publish stable to Marketplace
+        if: ${{ !inputs.pre-release && secrets.VSCE_PAT != '' }}
+        run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
         continue-on-error: true
 
       # ── Upload VSIX to the GitHub Release ──────────

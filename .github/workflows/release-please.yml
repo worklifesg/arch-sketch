@@ -55,17 +55,21 @@ jobs:
       - name: Package VSIX
         run: npx vsce package --no-dependencies
 
-      # ── Publish to VS Code Marketplace ─────────────
-      - name: Publish to Marketplace
-        run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-
-      # ── Publish to Open VSX (VSCodium / Gitpod) ───
+      # ── Publish to Open VSX (primary registry) ────
       - name: Publish to Open VSX Registry
         run: npx ovsx publish archsketch-*.vsix
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
+
+      # ── Publish to VS Code Marketplace (optional) ──
+      # Only runs if VSCE_PAT secret is configured.
+      # To enable: create an Azure DevOps PAT with Marketplace→Manage scope
+      # and add it as a repo secret named VSCE_PAT.
+      - name: Publish to VS Code Marketplace
+        if: secrets.VSCE_PAT != ''
+        run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
         continue-on-error: true
 
       # ── Upload VSIX to the GitHub Release ──────────
