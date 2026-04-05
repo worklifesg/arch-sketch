@@ -66,10 +66,11 @@ jobs:
       # To enable: create an Azure DevOps PAT with Marketplace→Manage scope
       # and add it as a repo secret named VSCE_PAT.
       - name: Publish to VS Code Marketplace
-        if: ${{ secrets.VSCE_PAT != '' }}
         run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
+        if: ${{ env.HAS_VSCE_PAT == 'true' }}
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          HAS_VSCE_PAT: ${{ secrets.VSCE_PAT != '' }}
         continue-on-error: true
 
       # ── Upload VSIX to the GitHub Release ──────────
