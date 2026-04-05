@@ -77,12 +77,37 @@ test/
 
 ## Pull Request Guidelines
 
-1. Create your branch from `develop` (not `main`)
-2. Run `npm run lint` and `npm test` before submitting
-3. Keep PRs focused on a single change
-4. Update `CHANGELOG.md` for user-facing changes
-5. Add/update tests for new functionality
-6. Add/update examples in `src/prompts/examples.ts` for new diagram types
+### Branch Protection
+
+Both `main` and `develop` are protected branches. **No one can push directly** — all changes must go through pull requests.
+
+| Rule | `main` | `develop` |
+|------|--------|-----------|
+| Direct push | Blocked | Blocked |
+| PRs required | Yes | Yes |
+| Approving reviews | 1 (code owner) | 1 (code owner) |
+| CI must pass (`quality`) | Yes | Yes |
+| Stale reviews dismissed | Yes | Yes |
+| Force push | Blocked | Blocked |
+| Branch deletion | Blocked | Blocked |
+
+A [CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) file ensures only the maintainer (`@worklifesg`) can approve merges.
+
+### Contribution Workflow
+
+1. **Fork** the repository (external contributors) or create a feature branch from `develop`
+2. Make your changes on your branch
+3. Run `npm run lint` and `npm test` before submitting
+4. Open a PR targeting `develop` (never `main` directly)
+5. Wait for CI to pass and a **code owner review**
+6. Once approved, the maintainer will merge your PR
+
+### PR Best Practices
+
+1. Keep PRs focused on a single change
+2. Update `CHANGELOG.md` for user-facing changes
+3. Add/update tests for new functionality
+4. Add/update examples in `src/prompts/examples.ts` for new diagram types
 
 ## Commit Messages
 
