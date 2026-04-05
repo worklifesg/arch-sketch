@@ -11,6 +11,7 @@
 <p align="center">
   <a href="https://github.com/worklifesg/arch-sketch/actions/workflows/ci.yml"><img src="https://github.com/worklifesg/arch-sketch/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
   <a href="https://github.com/worklifesg/arch-sketch/actions/workflows/security.yml"><img src="https://github.com/worklifesg/arch-sketch/actions/workflows/security.yml/badge.svg" alt="Security" /></a>
+  <a href="https://open-vsx.org/extension/worklifesg/archsketch"><img src="https://img.shields.io/open-vsx/v/worklifesg/archsketch?label=Open%20VSX" alt="Open VSX" /></a>
   <img src="https://img.shields.io/github/license/worklifesg/arch-sketch" alt="License" />
   <img src="https://img.shields.io/github/v/release/worklifesg/arch-sketch?include_prereleases" alt="Release" />
 </p>
@@ -83,12 +84,41 @@ Save diagrams in multiple formats:
 
 ## Quick Start
 
-1. Install the extension from the VS Code Marketplace
-2. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-3. Run **"ArchSketch: Generate Cloud Architecture Diagram"**
-4. Describe your architecture in plain English
-5. Edit the generated diagram in the embedded draw.io editor
-6. Export as SVG, PNG, .drawio, or HTML embed
+### Installation
+
+#### From GitHub Releases (recommended for VS Code)
+
+1. Download the latest `.vsix` from **[GitHub Releases](https://github.com/worklifesg/arch-sketch/releases/latest)**
+2. In VS Code, open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+3. Run **"Extensions: Install from VSIX..."**
+4. Select the downloaded `.vsix` file
+
+Or install via CLI:
+
+```bash
+# Download and install the latest release
+gh release download --repo worklifesg/arch-sketch --pattern "*.vsix" --dir /tmp
+code --install-extension /tmp/archsketch-*.vsix
+```
+
+#### From Open VSX Registry (for VSCodium / Gitpod / Theia)
+
+Search for **"ArchSketch"** in the extension marketplace, or install from the command line:
+
+```bash
+# VSCodium
+codium --install-extension worklifesg.archsketch
+```
+
+Browse it on [Open VSX](https://open-vsx.org/extension/worklifesg/archsketch).
+
+### Usage
+
+1. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+2. Run **"ArchSketch: Generate Cloud Architecture Diagram"**
+3. Describe your architecture in plain English
+4. Edit the generated diagram in the embedded draw.io editor
+5. Export as SVG, PNG, .drawio, or HTML embed
 
 **Or** use the ArchSketch sidebar panel in the activity bar for a guided experience.
 
