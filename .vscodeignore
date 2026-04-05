@@ -16,3 +16,5 @@
 **/*.test.ts
 **/.env
 **/images/icon.svg
+**/.release-please-manifest.json
+**/release-please-config.json
