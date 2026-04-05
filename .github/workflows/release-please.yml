@@ -12,9 +12,65 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs['.--release_created'] }}
+      tag_name: ${{ steps.release.outputs['.--tag_name'] }}
     steps:
       - uses: googleapis/release-please-action@v4
+        id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  publish:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    name: Test, Build & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      # ── Quality gates ──────────────────────────────
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Type check
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      # ── Build & Package ────────────────────────────
+      - name: Build
+        run: npm run build
+
+      - name: Package VSIX
+        run: npx vsce package --no-dependencies
+
+      # ── Publish to VS Code Marketplace ─────────────
+      - name: Publish to Marketplace
+        run: npx vsce publish --no-dependencies --packagePath archsketch-*.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      # ── Publish to Open VSX (VSCodium / Gitpod) ───
+      - name: Publish to Open VSX Registry
+        run: npx ovsx publish archsketch-*.vsix
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        continue-on-error: true
+
+      # ── Upload VSIX to the GitHub Release ──────────
+      - name: Upload VSIX to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.release-please.outputs.tag_name }}
+          files: "*.vsix"
