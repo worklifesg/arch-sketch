@@ -1,0 +1,142 @@
+{
+  "name": "archsketch",
+  "displayName": "ArchSketch",
+  "description": "Generate cloud architecture diagrams from natural language using AI",
+  "version": "0.1.0",
+  "publisher": "archsketch",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "draw.io",
+    "architecture",
+    "diagram",
+    "aws",
+    "azure",
+    "gcp",
+    "kubernetes",
+    "cloud"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "archsketch.generateDiagram",
+        "title": "ArchSketch: Generate Cloud Architecture Diagram"
+      },
+      {
+        "command": "archsketch.openDiagram",
+        "title": "ArchSketch: Open .drawio in Preview"
+      },
+      {
+        "command": "archsketch.exportSvg",
+        "title": "ArchSketch: Export as SVG"
+      },
+      {
+        "command": "archsketch.exportPng",
+        "title": "ArchSketch: Export as PNG"
+      },
+      {
+        "command": "archsketch.exportHtml",
+        "title": "ArchSketch: Export HTML Embed Code"
+      },
+      {
+        "command": "archsketch.diagramFromCode",
+        "title": "ArchSketch: Generate Diagram from Code"
+      },
+      {
+        "command": "archsketch.diagramFromFolder",
+        "title": "ArchSketch: Scan Folder for Architecture Diagram (Multi-File)"
+      },
+      {
+        "command": "archsketch.diagramFromWorkspace",
+        "title": "ArchSketch: Scan Workspace for Architecture Diagram"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "archsketch",
+          "title": "ArchSketch",
+          "icon": "$(symbol-structure)"
+        }
+      ]
+    },
+    "views": {
+      "archsketch": [
+        {
+          "type": "webview",
+          "id": "archsketch.sidebar",
+          "name": "ArchSketch"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ArchSketch",
+      "properties": {
+        "archsketch.defaultProvider": {
+          "type": "string",
+          "default": "aws",
+          "enum": [
+            "aws",
+            "azure",
+            "gcp",
+            "kubernetes",
+            "general"
+          ],
+          "description": "Default cloud provider for diagram shapes"
+        },
+        "archsketch.theme": {
+          "type": "string",
+          "default": "auto",
+          "enum": [
+            "light",
+            "dark",
+            "auto"
+          ],
+          "description": "Theme for the draw.io editor"
+        },
+        "archsketch.defaultExportFormat": {
+          "type": "string",
+          "default": "svg",
+          "enum": [
+            "svg",
+            "png",
+            "drawio"
+          ],
+          "description": "Default export format for diagrams"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "package": "vsce package",
+    "lint": "tsc --noEmit",
+    "vscode:prepublish": "node esbuild.mjs --production"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.90.0",
+    "@vitest/coverage-v8": "^4.1.2",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.21.0",
+    "ovsx": "^0.10.10",
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/worklifesg/arch-sketch"
+  }
+}

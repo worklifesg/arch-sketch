@@ -1,0 +1,15 @@
+**/.git/**
+**/src/**
+**/node_modules/**
+**/.github/**
+**/test/**
+**/coverage/**
+**/tsconfig.json
+**/esbuild.mjs
+**/vitest.config.ts
+**/.eslintrc*
+**/.editorconfig
+**/CONTRIBUTING.md
+**/CHANGELOG.md
+**/*.test.ts
+**/.env
