@@ -3,7 +3,7 @@
   "displayName": "ArchSketch",
   "description": "Generate cloud architecture diagrams from natural language using AI",
   "version": "0.1.1",
-  "publisher": "archsketch",
+  "publisher": "worklifesg",
   "license": "MIT",
   "icon": "images/icon.png",
   "preview": true,
