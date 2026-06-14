@@ -10,7 +10,8 @@ updates:
     labels:
       - "dependencies"
     commit-message:
-      prefix: "deps"
+      prefix: "fix"
+      include: "scope"
     groups:
       minor-and-patch:
         patterns:
