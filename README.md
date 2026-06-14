@@ -124,7 +124,7 @@ Browse it on [Open VSX](https://open-vsx.org/extension/worklifesg/archsketch).
 
 ## Requirements
 
-- VS Code 1.90.0+
+- VS Code 1.120.0+
 - [GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) extension (provides the AI model)
 
 ## Commands
@@ -170,7 +170,7 @@ Browse it on [Open VSX](https://open-vsx.org/extension/worklifesg/archsketch).
 | "No language model available" | Ensure GitHub Copilot extension is installed and signed in |
 | Empty or malformed diagram | Try a more specific description; include service names |
 | Diagram doesn't match provider | Set `archsketch.defaultProvider` or specify the provider in your prompt |
-| VSIX won't install | Check VS Code version is 1.90.0 or later |
+| VSIX won't install | Check VS Code version is 1.120.0 or later |
 
 ## Development
 
